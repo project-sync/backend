@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.waver'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 1. JPA Dependency
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // 2. Validation Dependency
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // 3. Spring Web Dependency
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 4. Lombok Dependency & Annotation
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    runtimeOnly 'com.h2database:h2'
+
+    // 5. Mysql Dependency
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // 6. JWT Dependency
+    compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 7. Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
